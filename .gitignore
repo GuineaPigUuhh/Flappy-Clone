@@ -1,0 +1,20 @@
+### HaxeFlixel
+export/*
+
+### HaxeLib
+.haxelib/
+
+### Github
+.github/
+
+### History and ionide
+.history
+.ionide
+
+### VsCode
+.vscode/*
+*.code-workspace
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
