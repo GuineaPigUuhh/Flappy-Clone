@@ -4,9 +4,6 @@ export/*
 ### HaxeLib
 .haxelib/
 
-### Github
-.github/
-
 ### History and ionide
 .history
 .ionide

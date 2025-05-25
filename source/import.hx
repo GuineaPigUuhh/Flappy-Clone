@@ -3,6 +3,7 @@ import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.text.FlxText;
 import flixel.FlxState;
 import flixel.FlxStrip;
 import flixel.FlxSubState;

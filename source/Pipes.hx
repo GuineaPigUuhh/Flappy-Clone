@@ -3,7 +3,9 @@ import flixel.util.FlxColor;
 
 class Pipes extends FlxSpriteGroup
 {
-	var _speed = 5;
+	var _speed = 250;
+	static final _width = 65;
+	static final _height = 500;
 
 	public var addedScore = false;
 
@@ -17,20 +19,19 @@ class Pipes extends FlxSpriteGroup
 		super();
 
 		top = new FlxSprite(FlxG.width, FlxG.random.float(-497, -173));
-		top.makeGraphic(50, 500, FlxColor.GREEN);
+		top.makeGraphic(_width, _height, FlxColor.GREEN);
 		add(top);
 
-		bottom = new FlxSprite(FlxG.width, (top.y + top.height) + 160);
-		bottom.makeGraphic(50, 500, FlxColor.GREEN);
+		bottom = new FlxSprite(FlxG.width, (top.y + top.height) + 200);
+		bottom.makeGraphic(_width, _height, FlxColor.GREEN);
 		add(bottom);
+
+		velocity.x = -_speed;
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (exists)
-			x -= _speed;
-		if (x < -700)
-			kill();
+		if (x < -700) kill();
 		if (friend != null)
 		{
 			for (i in [bottom, top])
@@ -41,7 +42,7 @@ class Pipes extends FlxSpriteGroup
 					PlayState.instance.score++;
 				}
 				if (FlxG.overlap(friend, i))
-					FlxG.resetState();
+					FlxG.state.openSubState(new GameOverSubstate(PlayState.instance.score));
 			}
 		}
 

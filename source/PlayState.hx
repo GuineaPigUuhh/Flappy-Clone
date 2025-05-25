@@ -3,7 +3,6 @@ import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.system.macros.FlxMacroUtil;
-import flixel.text.FlxText;
 import flixel.util.FlxTimer;
 
 class PlayState extends FlxState
@@ -14,7 +13,8 @@ class PlayState extends FlxState
 
 	var player:Bird;
 
-	final scoreTxt_Lerp = 0.2;
+	final _scoreTxt_scale = 0.65;
+	final _scoreTxt_lerp = 0.2;
 
 	public var pipes:Array<FlxSpriteGroup>;
 	public var pipeTimer:FlxTimer;
@@ -26,7 +26,8 @@ class PlayState extends FlxState
 		score = value;
 
 		scoreTxt.text = '$score';
-		scoreTxt.scale.y = scoreTxt.scale.x += 0.3;
+		scoreTxt.scale.y = scoreTxt.scale.x += _scoreTxt_scale;
+		FlxG.sound.play(Paths.sound('score' + (score % 2 + 1)));
 
 		return score;
 	}
@@ -34,12 +35,14 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		instance = this;
+		FlxG.mouse.visible = false;
 
 		HUD = new FlxCamera();
 		HUD.bgColor.alpha = 0;
 		FlxG.cameras.add(HUD, false);
 
 		player = new Bird();
+		player.screenCenter();
 		add(player);
 
 		pipeTimer = new FlxTimer();
@@ -57,7 +60,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
-		scoreTxt.scale.set(FlxMath.lerp(scoreTxt.scale.x, 1, scoreTxt_Lerp), FlxMath.lerp(scoreTxt.scale.y, 1, scoreTxt_Lerp));
+		scoreTxt.scale.set(FlxMath.lerp(scoreTxt.scale.x, 1, _scoreTxt_lerp), FlxMath.lerp(scoreTxt.scale.y, 1, _scoreTxt_lerp));
 	}
 
 	function createHUD()
@@ -65,7 +68,7 @@ class PlayState extends FlxState
 		scoreTxt = new FlxText(0, 50, FlxG.width, '0', 50);
 		scoreTxt.cameras = [HUD];
 		scoreTxt.bold = true;
-		scoreTxt.font = Paths.font("JetBrainsMono-Bold.ttf");
+		scoreTxt.font = Paths.font(Main.defaultFont);
 		scoreTxt.alignment = CENTER;
 		add(scoreTxt);
 	}
