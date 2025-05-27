@@ -28,7 +28,7 @@ class Bird extends FlxSprite
 
 	private function controls()
 	{
-		final jumpKey = FlxG.keys.justPressed.SPACE || FlxG.mouse.pressed;
+		final jumpKey = FlxG.keys.justPressed.SPACE || FlxG.mouse.justPressed;
 		if (jumpKey)
 		{
 			velocity.y = -_gravity / 2;
