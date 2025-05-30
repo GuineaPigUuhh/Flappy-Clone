@@ -6,8 +6,8 @@ import openfl.display.Sprite;
 class Main extends Sprite
 {
 	var config = {
-		width: 0, // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
-		height: 0, // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
+		width: 640, // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
+		height: 480, // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 		zoom: -1.0, // If -1, zoom is automatically calculated to fit the window dimensions. (Removed from Flixel 5.0.0)
 		framerate: 60, // How many frames per second the game should run at.
 		initialState: PlayState, // is the state in which the game will start.

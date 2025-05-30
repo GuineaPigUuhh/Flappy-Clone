@@ -4,17 +4,22 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.system.macros.FlxMacroUtil;
 import flixel.util.FlxTimer;
+import openfl.filters.ShaderFilter;
+import openfl.display.Shader;
+import flixel.system.FlxAssets.FlxShader;
 
 class PlayState extends FlxState
 {
 	public var HUD:FlxCamera;
+	public var GAME:FlxCamera;
+
 	public var scoreTxt:FlxText;
 	public var score(default, set):Int = 0;
 
 	var player:Bird;
 
 	final _scoreTxt_scale = 0.65;
-	final _scoreTxt_lerp = 0.2;
+	final _scoreTxt_lerp = 6;
 
 	public var pipes:Array<FlxSpriteGroup>;
 	public var pipeTimer:FlxTimer;
@@ -37,9 +42,15 @@ class PlayState extends FlxState
 		instance = this;
 		FlxG.mouse.visible = false;
 
+		GAME = new FlxCamera();
+
 		HUD = new FlxCamera();
 		HUD.bgColor.alpha = 0;
+
+		FlxG.cameras.reset(GAME);
 		FlxG.cameras.add(HUD, false);
+
+		FlxG.cameras.setDefaultDrawTarget(GAME, true);
 
 		player = new Bird();
 		player.screenCenter();
@@ -60,7 +71,8 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
-		scoreTxt.scale.set(FlxMath.lerp(scoreTxt.scale.x, 1, _scoreTxt_lerp), FlxMath.lerp(scoreTxt.scale.y, 1, _scoreTxt_lerp));
+		scoreTxt.scale.x = FlxMath.lerp(scoreTxt.scale.x, 1, _scoreTxt_lerp*elapsed); 
+		scoreTxt.scale.y = FlxMath.lerp(scoreTxt.scale.y, 1, _scoreTxt_lerp*elapsed);
 	}
 
 	function createHUD()

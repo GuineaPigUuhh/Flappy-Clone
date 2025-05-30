@@ -6,7 +6,7 @@ class Bird extends FlxSprite
 {
 	public var _gravity:Int = 600;
 	static final _jump_scale = 0.2;
-	static final _lerp_scale = 0.125;
+	static final _lerp_scale = 10;
 
 	override public function new(x:Float = 0, y:Float = 0)
 	{
@@ -20,13 +20,13 @@ class Bird extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		super.update(elapsed);
-
-		controls();
+		controls(elapsed);
 		applyLimits();
+
+		super.update(elapsed);
 	}
 
-	private function controls()
+	private function controls(elapsed:Float)
 	{
 		final jumpKey = FlxG.keys.justPressed.SPACE || FlxG.mouse.justPressed;
 		if (jumpKey)
@@ -37,8 +37,8 @@ class Bird extends FlxSprite
 			scale.y += _jump_scale;
 		}
 		angle = velocity.y * 0.05;
-		scale.x = FlxMath.lerp(scale.x, 1, _lerp_scale);
-		scale.y = FlxMath.lerp(scale.y, 1, _lerp_scale);
+		scale.x = FlxMath.lerp(scale.x, 1, _lerp_scale*elapsed);
+		scale.y = FlxMath.lerp(scale.y, 1, _lerp_scale*elapsed);
 	}
 
 	private function applyLimits()

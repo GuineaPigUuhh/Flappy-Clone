@@ -41,7 +41,7 @@ class Pipes extends FlxSpriteGroup
 					addedScore = true;
 					PlayState.instance.score++;
 				}
-				if (FlxG.overlap(friend, i))
+				if (FlxG.collide(friend, i))
 					FlxG.state.openSubState(new GameOverSubstate(PlayState.instance.score));
 			}
 		}
